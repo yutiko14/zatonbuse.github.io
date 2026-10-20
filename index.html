@@ -100,6 +100,17 @@
     </article>
   </div>
 </main>
+
+  <div id="fine-overlay" role="dialog" aria-modal="true" aria-labelledby="fine-title" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:20px;">
+    <div style="max-width:520px;width:100%;background:#ffe600;color:#080808;border:8px solid #ff00b8;box-shadow:12px 12px 0 #00fff7;padding:24px;text-align:center;transform:rotate(-1deg);">
+      <div style="font-size:54px;line-height:1">🚨🚌🚨</div>
+      <h2 id="fine-title" style="font:1000 clamp(28px,7vw,48px) Impact,sans-serif;margin:14px 0;text-transform:uppercase;">ШТРАФ ЗА ПРОСМОТР ПОРНО!</h2>
+      <p style="font:bold 16px monospace;">НАРУШЕНИЕ ЗАФИКСИРОВАНО ЗАТОНОМ.<br>ОПЛАТА: 3 HDMI-КАБЕЛЯ И ОДИН БИЛЕТ НА АВТОБУС В ВЫЛЬГОРТ.</p>
+      <p style="font:bold 12px monospace;">*Это мем. Никакого настоящего штрафа нет.</p>
+      <button id="fine-close" type="button" style="background:#111;color:#fff;border:3px solid #fff;padding:12px 20px;font-weight:1000;font-size:18px;cursor:pointer;">Я ПОНЯЛ, ТОВАРИЩ ПАЗИК</button>
+    </div>
+  </div>
+
 <footer>
   © 2007–∞ ЗАТОНОСФЕРА. ВСЕ ПРАВА ПЕРЕДАНЫ ВОДИТЕЛЮ.<br>
   Сайт работает на трёх картошках, одном HDMI и обиде.<br><span class="blink">НЕ ОБНОВЛЯЙ СТРАНИЦУ. ОНА МОЖЕТ ОБИДЕТЬСЯ.</span>
@@ -157,6 +168,16 @@ function chaos(){
   if (Math.random() > .55) document.body.style.transform = 'rotate(0.4deg)';
   setTimeout(()=>{document.body.style.filter='';document.body.style.transform='';},1800);
 }
+
+// Мемное предупреждение каждые 15 секунд — без настоящих штрафов.
+const fineOverlay = document.getElementById('fine-overlay');
+const fineClose = document.getElementById('fine-close');
+function showFine(){ fineOverlay.style.display = 'flex'; }
+function hideFine(){ fineOverlay.style.display = 'none'; }
+fineClose.addEventListener('click', hideFine);
+fineOverlay.addEventListener('click', (event) => { if(event.target === fineOverlay) hideFine(); });
+setInterval(showFine, 15000);
+
 </script>
 </body>
 </html>
