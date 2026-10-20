@@ -3,181 +3,698 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ЗАТОНОСФЕРА 3000 — НЕ СПРАШИВАЙ ПРО HDMI</title>
+<title>ЗАТОНОСФЕРА 3000</title>
+
 <style>
-  :root { --lime:#d8ff00; --pink:#ff00b8; --cyan:#00fff7; --black:#090909; }
-  * { box-sizing:border-box; }
-  body { margin:0; color:#fff; font-family:Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    background: repeating-linear-gradient(135deg,#141414 0 12px,#1d1d1d 12px 24px); overflow-x:hidden; }
-  .ticker { background:var(--lime); color:#000; padding:10px; font: bold 16px monospace; white-space:nowrap; overflow:hidden; }
-  .ticker span { display:inline-block; animation: ticker 18s linear infinite; }
-  @keyframes ticker { from{transform:translateX(100vw)} to{transform:translateX(-100%)} }
-  header { text-align:center; padding:34px 14px 24px; background:linear-gradient(120deg,#5000ff,#ff00a8,#ff4d00); border-bottom:8px dashed #fff; }
-  h1 { margin:0; font-size:clamp(42px,10vw,100px); line-height:.9; text-shadow:5px 5px #000,-2px -2px var(--lime); transform:rotate(-2deg); }
-  .subtitle { margin-top:20px; font: bold 15px monospace; background:#000; display:inline-block; padding:8px 12px; }
-  main { max-width:1100px; margin:auto; padding:20px; }
-  .warning { border:4px solid var(--lime); background:#000; padding:14px; text-align:center; color:var(--lime); font: bold 15px monospace; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin:20px 0; }
-  .card { padding:18px; border:4px solid #fff; background:#111; box-shadow:8px 8px 0 var(--pink); min-height:180px; }
-  .card:nth-child(2n) { box-shadow:8px 8px 0 var(--cyan); transform:rotate(1deg); }
-  .card h2 { font-size:29px; margin:0 0 12px; color:var(--lime); }
-  .emoji { font-size:48px; }
-  p { font-family:monospace; line-height:1.5; }
-  button { border:3px solid #fff; background:var(--lime); color:#000; padding:12px 15px; font-weight:1000; font-size:17px; cursor:pointer; box-shadow:4px 4px 0 #ff00b8; }
-  button:hover { transform:translate(3px,3px); box-shadow:1px 1px 0 #ff00b8; }
-  .bigbutton { width:100%; font-size:clamp(20px,4vw,32px); background:var(--pink); color:white; margin:10px 0; }
-  #output { min-height:70px; background:#000; border:3px dashed var(--cyan); padding:15px; color:var(--cyan); font: bold 17px monospace; margin-top:12px; }
-  .buslane { background:#f5d000; color:#111; padding:18px; border:6px double #111; text-align:center; overflow:hidden; }
-  .bus { font-size:65px; display:inline-block; animation: drive 4s linear infinite; }
-  @keyframes drive { 0%{transform:translateX(-40vw)} 100%{transform:translateX(40vw)} }
-  .marquee { background:var(--cyan); color:#000; font:bold 23px monospace; padding:10px; overflow:hidden; white-space:nowrap; }
-  .marquee span { display:inline-block; animation: ticker 12s linear infinite; }
-  .fake-stats { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:20px 0; }
-  .stat { background:#fff; color:#000; padding:10px; font: bold 14px monospace; }
-  footer { text-align:center; padding:30px 10px; color:#bbb; font:12px monospace; border-top:2px dashed #666; }
-  .glitch { animation: glitch .5s infinite alternate; }
-  @keyframes glitch { from{ text-shadow:3px 0 red,-3px 0 cyan; } to{ text-shadow:-3px 0 red,3px 0 cyan; } }
-  .blink { animation: blink .7s steps(2,start) infinite; }
-  @keyframes blink { to{visibility:hidden} }
+:root {
+  --lime: #d8ff00;
+  --pink: #ff00b8;
+  --cyan: #00fff7;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: white;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  background: repeating-linear-gradient(
+    135deg, #141414 0 12px, #202020 12px 24px
+  );
+  overflow-x: hidden;
+}
+
+.ticker {
+  background: var(--lime);
+  color: black;
+  padding: 10px;
+  font: bold 15px monospace;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ticker span {
+  display: inline-block;
+  animation: ticker 18s linear infinite;
+}
+
+@keyframes ticker {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-100%); }
+}
+
+header {
+  text-align: center;
+  padding: 35px 12px;
+  background: linear-gradient(120deg, #5000ff, #ff00a8, #ff4d00);
+  border-bottom: 8px dashed white;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(42px, 10vw, 100px);
+  line-height: .95;
+  text-shadow: 5px 5px black, -2px -2px var(--lime);
+  transform: rotate(-2deg);
+}
+
+.subtitle {
+  margin-top: 20px;
+  background: black;
+  display: inline-block;
+  padding: 10px;
+  font: bold 13px monospace;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.warning {
+  border: 4px solid var(--lime);
+  background: black;
+  padding: 15px;
+  text-align: center;
+  color: var(--lime);
+  font: bold 14px monospace;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.stat {
+  background: white;
+  color: black;
+  padding: 10px;
+  font: bold 13px monospace;
+}
+
+.buslane {
+  background: #f5d000;
+  color: #111;
+  padding: 18px;
+  border: 6px double black;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bus {
+  font-size: 65px;
+  display: inline-block;
+  animation: drive 4s linear infinite alternate;
+}
+
+@keyframes drive {
+  from { transform: translateX(-30vw); }
+  to { transform: translateX(30vw); }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin: 25px 0;
+}
+
+.card {
+  padding: 18px;
+  border: 4px solid white;
+  background: #111;
+  box-shadow: 8px 8px 0 var(--pink);
+}
+
+.card:nth-child(even) {
+  box-shadow: 8px 8px 0 var(--cyan);
+}
+
+.card h2 {
+  font-size: 27px;
+  color: var(--lime);
+  margin-top: 0;
+}
+
+.card p, .description {
+  font: 14px/1.6 monospace;
+}
+
+.emoji { font-size: 45px; }
+
+button {
+  border: 3px solid white;
+  background: var(--lime);
+  color: black;
+  padding: 12px;
+  font-weight: 1000;
+  font-size: 15px;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+button:hover {
+  transform: translate(2px, 2px);
+  filter: hue-rotate(80deg);
+}
+
+.bigbutton {
+  width: 100%;
+  background: var(--pink);
+  color: white;
+  font-size: clamp(20px, 4vw, 32px);
+  margin: 15px 0;
+}
+
+#output {
+  min-height: 75px;
+  background: black;
+  border: 3px dashed var(--cyan);
+  padding: 16px;
+  color: var(--cyan);
+  font: bold 16px monospace;
+  overflow-wrap: anywhere;
+}
+
+.marquee {
+  background: var(--cyan);
+  color: black;
+  font: bold 22px monospace;
+  padding: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee span {
+  display: inline-block;
+  animation: ticker 12s linear infinite;
+}
+
+.poll {
+  padding: 15px 0;
+  border-bottom: 2px dashed #777;
+}
+
+.poll h3 {
+  color: var(--cyan);
+  font: bold 19px monospace;
+}
+
+.poll label {
+  display: block;
+  font: 14px/1.7 monospace;
+  cursor: pointer;
+}
+
+.poll input {
+  accent-color: var(--pink);
+}
+
+.result {
+  margin-top: 12px;
+  font: 13px/1.8 monospace;
+  overflow-wrap: anywhere;
+}
+
+.bar {
+  color: var(--lime);
+}
+
+.glitch {
+  animation: glitch .4s infinite alternate;
+}
+
+@keyframes glitch {
+  from { text-shadow: 3px 0 red, -3px 0 cyan; }
+  to { text-shadow: -3px 0 red, 3px 0 cyan; }
+}
+
+footer {
+  text-align: center;
+  padding: 30px 10px;
+  color: #bbb;
+  font: 12px/1.8 monospace;
+  border-top: 2px dashed #666;
+}
+
+/* ШТРАФ ОТ АВТОБУСНОЙ ПОЛИЦИИ */
+#fine-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,.9);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.fine-box {
+  max-width: 520px;
+  width: 100%;
+  background: #ffe600;
+  color: #080808;
+  border: 8px solid var(--pink);
+  box-shadow: 12px 12px 0 var(--cyan);
+  padding: 24px;
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.fine-box h2 {
+  font-size: clamp(28px, 7vw, 48px);
+  margin: 15px 0;
+}
+
+.fine-box p {
+  font: bold 14px/1.6 monospace;
+}
+
+.fine-box button {
+  background: black;
+  color: white;
+}
+
+@media(max-width: 500px) {
+  main { padding: 12px; }
+  .card { padding: 14px; }
+}
 </style>
 </head>
+
 <body>
-<div class="ticker"><span>⚠️ ВНИМАНИЕ: HDMI НЕ ПРОХОДИТ ТЕХОСМОТР • ЗАТОН ОБЪЯВИЛ НЕЗАВИСИМОСТЬ ОТ РАСПИСАНИЯ • ВЫЛЬГОРТ ВЫШЕЛ ИЗ ЧАТА • НЕ КОРМИТЕ АВТОБУС ПОСЛЕ ПОЛУНОЧИ •</span></div>
+
+<div class="ticker">
+<span>
+⚠️ ЗАТОН ОБЪЯВИЛ НЕЗАВИСИМОСТЬ • HDMI НЕ ПРОШЁЛ ТЕХОСМОТР •
+ВЫЛЬГОРТ ВЫШЕЛ ИЗ ЧАТА • ПАЗИК ЗНАЕТ СЛИШКОМ МНОГО •
+</span>
+</div>
+
 <header>
   <h1 class="glitch">ЗАТОНОСФЕРА<br>3000</h1>
-  <div class="subtitle">ОФИЦИАЛЬНЫЙ НЕОФИЦИАЛЬНЫЙ ПОРТАЛ ЗАТОНОМАТИКИ</div>
+  <div class="subtitle">
+    ОФИЦИАЛЬНЫЙ НЕОФИЦИАЛЬНЫЙ ПОРТАЛ ЗАТОНОМАТИКИ
+  </div>
 </header>
+
 <main>
-  <div class="warning">☢ САЙТ НЕ ОДОБРЕН НИ ОДНИМ АВТОБУСОМ ☢<br>Если экран посинел — это Выльгорт подключился.</div>
 
-  <div class="fake-stats">
-    <div class="stat">АВТОБУСОВ В КОСМОСЕ: <span id="busCount">∞</span></div>
-    <div class="stat">HDMI НАПРЯЖЕНИЕ: <span id="hdmi">404%</span></div>
-    <div class="stat">ЗАТОН-РЕЙТИНГ: ̷̛̖̩̯̥̾9̸̢̛̺̩̒9̶̡̛̳̿9̷̢̟̬̓</div>
-  </div>
+<div class="warning">
+☢ САЙТ НЕ ОДОБРЕН НИ ОДНИМ АВТОБУСОМ ☢<br>
+Если экран посинел — это Выльгорт подключился.
+</div>
 
-  <section class="buslane">
-    <div class="bus" aria-label="автобус">🚌💨</div>
-    <h2>МАРШРУТ № 0: В НИКУДА, НО С ПЕРЕСАДКОЙ</h2>
-    <p>Следующая остановка: «Брат, а HDMI где?»</p>
-  </section>
+<div class="stats">
+  <div class="stat">АВТОБУСОВ: ∞</div>
+  <div class="stat">HDMI: 404%</div>
+  <div class="stat">ЗАТОНО-РЕЙТИНГ: 999</div>
+</div>
 
-  <div class="grid">
-    <article class="card">
-      <div class="emoji">🚌</div><h2>АВТОБУСНЫЙ ОРАКУЛ</h2>
-      <p>Узнай, что сегодня задумал общественный транспорт.</p>
-      <button onclick="oracle()">СПРОСИТЬ У ПАЗИКА</button>
-    </article>
-    <article class="card">
-      <div class="emoji">🔌</div><h2>HDMI-АЛТАРЬ</h2>
-      <p>Вставь кабель в судьбу. Получи сигнал из Выльгорта.</p>
-      <button onclick="hdmiRitual()">ПОДКЛЮЧИТЬ РЕАЛЬНОСТЬ</button>
-    </article>
-    <article class="card">
-      <div class="emoji">🏚️</div><h2>ЗАТОНСКИЙ ГЕНЕРАТОР</h2>
-      <p>Сгенерируй новость, которую никто не просил.</p>
-      <button onclick="news()">СЛОМАТЬ ПОВЕСТКУ</button>
-    </article>
-  </div>
+<section class="buslane">
+  <div class="bus">🚌💨</div>
+  <h2>МАРШРУТ №0: В НИКУДА</h2>
+  <p>Следующая остановка: «Брат, а HDMI где?»</p>
+</section>
 
-  <button class="bigbutton" onclick="chaos()">🚨 НАЖМИ И УХУЯРЬ ВСЮ СИСТЕМУ 🚨</button>
-  <div id="output">> ОЖИДАНИЕ КОМАНДЫ...<br>> ПОДКЛЮЧИТЕ HDMI К АВТОБУСУ.</div>
+<div class="grid">
 
-  <div class="marquee"><span>ВЫЛЬГОРТ НЕ СПИТ • ЗАТОН НЕ СПРАШИВАЕТ • АВТОБУС ЗНАЕТ ТВОЙ IP (НЕТ) • HDMI — ЭТО ОБРАЗ ЖИЗНИ •</span></div>
+  <article class="card">
+    <div class="emoji">🚌</div>
+    <h2>АВТОБУСНЫЙ ОРАКУЛ</h2>
+    <p>Узнай свою судьбу у старого ПАЗика.</p>
+    <button onclick="oracle()">СПРОСИТЬ У ПАЗИКА</button>
+  </article>
 
-  <div class="grid">
-    <article class="card">
-      <h2>📡 РАДИО «НЕ СЛОВА ПРО ЗАТОН»</h2>
-      <p id="radio">В эфире тишина, потому что водитель забрал микрофон.</p>
-      <button onclick="radio()">СМЕНИТЬ ЭФИР</button>
-    </article>
-    <article class="card">
-      <h2>🧠 ТЕСТ НА ВЫЛЬГОРТ</h2>
-      <p>Ты увидел автобус, у которого вместо номера HDMI 2.1. Твои действия?</p>
-      <button onclick="test('A')">Поздороваться</button>
-      <button onclick="test('B')">Купить переходник</button>
-      <button onclick="test('C')">Стать остановкой</button>
-    </article>
-  </div>
+  <article class="card">
+    <div class="emoji">🔌</div>
+    <h2>HDMI-АЛТАРЬ</h2>
+    <p>Подключи кабель к своей карме.</p>
+    <button onclick="hdmiRitual()">ПОДКЛЮЧИТЬ РЕАЛЬНОСТЬ</button>
+  </article>
+
+  <article class="card">
+    <div class="emoji">🏚️</div>
+    <h2>ЗАТОНСКИЙ ГЕНЕРАТОР</h2>
+    <p>Новости, которые не переживут проверку реальностью.</p>
+    <button onclick="news()">СЛОМАТЬ ПОВЕСТКУ</button>
+  </article>
+
+</div>
+
+<button class="bigbutton" onclick="chaos()">
+🚨 НАЖМИ И УХУЯРЬ ВСЮ СИСТЕМУ 🚨
+</button>
+
+<div id="output">
+> ОЖИДАНИЕ КОМАНДЫ...<br>
+> ПОДКЛЮЧИТЕ HDMI К АВТОБУСУ.
+</div>
+
+<div class="marquee">
+<span>
+ВЫЛЬГОРТ НЕ СПИТ • ЗАТОН НЕ СПРАШИВАЕТ •
+HDMI — ЭТО ОБРАЗ ЖИЗНИ • АВТОБУС ВИДЕЛ ТВОЮ ИСТОРИЮ ПОИСКА •
+</span>
+</div>
+
+<!-- ОПРОСЫ -->
+<section class="card" style="margin-top:25px">
+<h2>🗳️ ВСЕНАРОДНЫЕ ОПРОСЫ ЗАТОНОСФЕРЫ</h2>
+<p class="description">
+Твой голос будет изучен комиссией из трёх ПАЗиков.
+Результаты абсолютно научные (нет).
+</p>
+
+<div id="polls"></div>
+
+<p id="poll-message" style="color:var(--lime);font: bold 13px monospace">
+ОЖИДАЕМ ВАШ ГОЛОС, ГРАЖДАНИН ЗАТОНОМАТИКИ.
+</p>
+</section>
+
+<div class="grid">
+
+  <article class="card">
+    <h2>📡 РАДИО «НЕ СЛОВА ПРО ЗАТОН»</h2>
+    <p id="radio">В эфире тишина: водитель забрал микрофон.</p>
+    <button onclick="radio()">СМЕНИТЬ ЭФИР</button>
+  </article>
+
+  <article class="card">
+    <h2>🧠 ТЕСТ НА ВЫЛЬГОРТ</h2>
+    <p>У автобуса вместо номера написано HDMI 2.1. Что делать?</p>
+    <button onclick="test('A')">Поздороваться</button>
+    <button onclick="test('B')">Купить переходник</button>
+    <button onclick="test('C')">Стать остановкой</button>
+  </article>
+
+</div>
+
 </main>
 
-  <div id="fine-overlay" role="dialog" aria-modal="true" aria-labelledby="fine-title" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:20px;">
-    <div style="max-width:520px;width:100%;background:#ffe600;color:#080808;border:8px solid #ff00b8;box-shadow:12px 12px 0 #00fff7;padding:24px;text-align:center;transform:rotate(-1deg);">
-      <div style="font-size:54px;line-height:1">🚨🚌🚨</div>
-      <h2 id="fine-title" style="font:1000 clamp(28px,7vw,48px) Impact,sans-serif;margin:14px 0;text-transform:uppercase;">ШТРАФ ЗА ПРОСМОТР ПОРНО!</h2>
-      <p style="font:bold 16px monospace;">НАРУШЕНИЕ ЗАФИКСИРОВАНО ЗАТОНОМ.<br>ОПЛАТА: 3 HDMI-КАБЕЛЯ И ОДИН БИЛЕТ НА АВТОБУС В ВЫЛЬГОРТ.</p>
-      <p style="font:bold 12px monospace;">*Это мем. Никакого настоящего штрафа нет.</p>
-      <button id="fine-close" type="button" style="background:#111;color:#fff;border:3px solid #fff;padding:12px 20px;font-weight:1000;font-size:18px;cursor:pointer;">Я ПОНЯЛ, ТОВАРИЩ ПАЗИК</button>
-    </div>
+<!-- МЕМНЫЙ ШТРАФ -->
+<div id="fine-overlay" role="dialog" aria-modal="true">
+  <div class="fine-box">
+    <div style="font-size:55px">🚨🚌🚨</div>
+    <h2>ШТРАФ ЗА ПРОСМОТР ПОРНО!</h2>
+    <p>
+      НАРУШЕНИЕ ЗАФИКСИРОВАНО ЗАТОНОМ.<br><br>
+      ОПЛАТА: 3 HDMI-КАБЕЛЯ И ОДИН БИЛЕТ
+      НА АВТОБУС В ВЫЛЬГОРТ.
+    </p>
+    <p>*Это мем. Никакого настоящего штрафа нет.</p>
+    <button onclick="hideFine()">Я ПОНЯЛ, ТОВАРИЩ ПАЗИК</button>
   </div>
+</div>
 
 <footer>
-  © 2007–∞ ЗАТОНОСФЕРА. ВСЕ ПРАВА ПЕРЕДАНЫ ВОДИТЕЛЮ.<br>
-  Сайт работает на трёх картошках, одном HDMI и обиде.<br><span class="blink">НЕ ОБНОВЛЯЙ СТРАНИЦУ. ОНА МОЖЕТ ОБИДЕТЬСЯ.</span>
+© 2007–∞ ЗАТОНОСФЕРА. ВСЕ ПРАВА ПЕРЕДАНЫ ВОДИТЕЛЮ.<br>
+Сайт работает на трёх картошках, одном HDMI и обиде.<br>
+НЕ ОБНОВЛЯЙ СТРАНИЦУ. ОНА МОЖЕТ ОБИДЕТЬСЯ.
 </footer>
+
 <script>
-const out = document.getElementById('output');
-const pick = a => a[Math.floor(Math.random()*a.length)];
-function oracle(){
-  out.textContent = '🚌 ' + pick([
-    'Автобус сказал: «Я сегодня еду по вайбу».',
-    'ПАЗик увидел HDMI и потребовал водительские права.',
-    'Маршрут изменён: теперь конечная — эмоциональная зрелость.',
-    'Водитель вышел за хлебом. Автобус продолжил карьеру самостоятельно.',
-    'Затон объявил автобусу: «Ни слова про Выльгорт».'
+const out = document.getElementById("output");
+const pick = a => a[Math.floor(Math.random() * a.length)];
+
+function oracle() {
+  out.textContent = "🚌 " + pick([
+    "Автобус сегодня едет по вайбу.",
+    "ПАЗик увидел HDMI и потребовал водительские права.",
+    "Конечная остановка — эмоциональная зрелость.",
+    "Водитель вышел за хлебом. Автобус продолжил карьеру.",
+    "Затон сказал: ни слова про Выльгорт.",
+    "ПАЗик знает, что ты делал прошлым летом."
   ]);
-}
-function hdmiRitual(){
-  document.getElementById('hdmi').textContent = pick(['9999%','NO SIGNAL','ВИЛКА НЕ ТА','ЗАТОНОВЕРСИЯ 2.0']);
-  out.textContent = pick([
-    '🔌 HDMI подключён к карме. Найдено 14 новых остановок.',
-    '⚡ СИГНАЛ ПОТЕРЯН. ВЫЛЬГОРТ ТЕПЕРЬ ВНУТРИ МОНИТОРА.',
-    '🧙 Кабель прошептал: «Покажи мне расписание».',
-    '💥 Поздравляем! Вы активировали автобусный BIOS.'
-  ]);
-}
-function news(){
-  out.textContent = '🗞️ ЭКСТРЕННАЯ НОВОСТЬ: ' + pick([
-    'в Затоне открыли пункт обмена HDMI на гречку.',
-    'Выльгорт потребовал добавить поворотники на все мысли.',
-    'автобус №∞ выиграл выборы председателя остановки.',
-    'местный кабель отказался работать без прописки.',
-    'в луже обнаружен маленький филиал автовокзала.',
-    'все маршрутки перешли на операционную систему картошкаOS.'
-  ]);
-}
-function radio(){
-  document.getElementById('radio').textContent = pick([
-    'Сейчас играет: «МАРШРУТКА В МОЁМ СЕРДЦЕ (REMIX 12 ЧАСОВ)».',
-    'Диджей HDMI поставил тишину на максимальную громкость.',
-    'Передаём привет остановке, которая видела слишком много.',
-    'Погода: внутри автобуса — июль, снаружи — драйвер не найден.'
-  ]);
-}
-function test(x){
-  out.textContent = x==='A' ? '✅ Ты принят почётным пассажиром. Тебе выдали билет в никуда.' :
-    x==='B' ? '🟪 Ты стал главным инженером HDMI-отдела. Зарплата — два сухарика.' :
-    '🏆 ВЫЛЬГОРТСКИЙ МУДРЕЦ. Теперь люди будут ждать автобус у тебя.';
-}
-function chaos(){
-  document.body.style.filter = `hue-rotate(${Math.floor(Math.random()*360)}deg) contrast(1.3)`;
-  document.getElementById('busCount').textContent = pick(['∞','-4','404','один огромный']);
-  out.innerHTML = '<span class="glitch">🚨 КРИТИЧЕСКАЯ ЗАТОНОСИТУАЦИЯ 🚨<br>' +
-    pick(['АВТОБУС ВЗЛЕТЕЛ.','HDMI ВЗЯЛ ИПОТЕКУ.','ВЫЛЬГОРТ ОБНОВИЛСЯ.','ВСЕ ОСТАНОВКИ СТАЛИ ГЛАВНЫМИ.']) +
-    '<br>СИСТЕМА НЕ ПОНИМАЕТ, ЧТО ПРОИСХОДИТ.</span>';
-  if (Math.random() > .55) document.body.style.transform = 'rotate(0.4deg)';
-  setTimeout(()=>{document.body.style.filter='';document.body.style.transform='';},1800);
 }
 
-// Мемное предупреждение каждые 15 секунд — без настоящих штрафов.
-const fineOverlay = document.getElementById('fine-overlay');
-const fineClose = document.getElementById('fine-close');
-function showFine(){ fineOverlay.style.display = 'flex'; }
-function hideFine(){ fineOverlay.style.display = 'none'; }
-fineClose.addEventListener('click', hideFine);
-fineOverlay.addEventListener('click', (event) => { if(event.target === fineOverlay) hideFine(); });
+function hdmiRitual() {
+  document.getElementById("output").textContent = pick([
+    "🔌 HDMI подключён к карме. Найдено 14 новых остановок.",
+    "⚡ ВЫЛЬГОРТ ТЕПЕРЬ ВНУТРИ МОНИТОРА.",
+    "🧙 Кабель прошептал: покажи мне расписание.",
+    "💥 Активирован автобусный BIOS.",
+    "NO SIGNAL. ПАЗИК НЕ ВИДИТ ТВОЁ БУДУЩЕЕ."
+  ]);
+}
+
+function news() {
+  out.textContent = "🗞️ ЭКСТРЕННАЯ НОВОСТЬ: " + pick([
+    "в Затоне открыли пункт обмена HDMI на гречку.",
+    "Выльгорт добавил поворотники ко всем мыслям.",
+    "автобус №∞ выиграл выборы председателя остановки.",
+    "кабель отказался работать без прописки.",
+    "в луже обнаружен филиал автовокзала.",
+    "все маршрутки перешли на картошкаOS.",
+    "местный голубь назначен министром общественного транспорта."
+  ]);
+}
+
+function radio() {
+  document.getElementById("radio").textContent = pick([
+    "Сейчас играет: «Маршрутка в моём сердце — 12-часовой ремикс».",
+    "Диджей HDMI поставил тишину на максимальную громкость.",
+    "Передаём привет остановке, которая видела слишком много.",
+    "Погода: внутри автобуса июль, снаружи драйвер не найден."
+  ]);
+}
+
+function test(x) {
+  out.textContent = x === "A"
+    ? "✅ Ты принят пассажиром. Билет в никуда уже напечатан."
+    : x === "B"
+    ? "🟪 Ты главный инженер HDMI. Зарплата — два сухарика."
+    : "🏆 Ты стал остановкой. Теперь люди ждут автобус у тебя.";
+}
+
+function chaos() {
+  document.body.style.filter =
+    `hue-rotate(${Math.floor(Math.random()*360)}deg) contrast(1.3)`;
+
+  out.textContent = "🚨 " + pick([
+    "АВТОБУС ВЗЛЕТЕЛ.",
+    "HDMI ВЗЯЛ ИПОТЕКУ.",
+    "ВЫЛЬГОРТ ОБНОВИЛСЯ.",
+    "ВСЕ ОСТАНОВКИ СТАЛИ ГЛАВНЫМИ.",
+    "ПАЗИК ЗАХВАТИЛ АДМИНКУ."
+  ]) + " СИСТЕМА НЕ ПОНИМАЕТ, ЧТО ПРОИСХОДИТ.";
+
+  setTimeout(() => {
+    document.body.style.filter = "";
+  }, 1800);
+}
+
+/* ОПРОСЫ: абсурдные вопросы и ответы */
+const questions = [
+  {
+    q: "Что делать, если автобус посмотрел на тебя первым?",
+    a: [
+      "Извиниться перед автобусом",
+      "Предъявить ему HDMI",
+      "Немедленно стать остановкой"
+    ]
+  },
+  {
+    q: "Что на самом деле находится в Затоне?",
+    a: [
+      "400 автобусов в плаще",
+      "Главный склад HDMI",
+      "Портал в Выльгортский бэкрум"
+    ]
+  },
+  {
+    q: "Какой официальный гимн Выльгорта?",
+    a: [
+      "Автобус не заводится — extended mix",
+      "HDMI не найден — акустика",
+      "40 минут тишины на конечной"
+    ]
+  },
+  {
+    q: "Кто должен управлять общественным транспортом?",
+    a: [
+      "ПАЗик с высшим образованием",
+      "Человек с паролем от Wi-Fi",
+      "HDMI-кабель, избранный народом"
+    ]
+  },
+  {
+    q: "Что делаешь, если холодильник сказал «Выльгорт» в 03:17?",
+    a: [
+      "Спрашиваю, есть ли проездной",
+      "Подключаю холодильник к HDMI",
+      "Вызываю электрика и шамана"
+    ]
+  },
+  {
+    q: "Какой твой любимый жанр контента в интернете?",
+    a: [
+      "Документалки про автобусы, снятые картошкой",
+      "Как стать HDMI за пять минут",
+      "Мужик 40 минут спорит с чайником"
+    ]
+  },
+  {
+    q: "Что означает табличка «18+» на автобусном депо?",
+    a: [
+      "У автобусов взрослая жизнь и ипотека",
+      "ПАЗик выучил математику и опасен",
+      "Вход для HDMI с паспортом"
+    ]
+  },
+  {
+    q: "Ты стал мэром Затона. Твой первый указ?",
+    a: [
+      "Всем по автобусу в ванной",
+      "Запретить слова «сигнал не найден»",
+      "HDMI становится официальной валютой"
+    ]
+  },
+  {
+    q: "Что положить в шаурму по-затонски?",
+    a: [
+      "Переходник HDMI",
+      "Маленький автобус",
+      "Расписание, соль и отчаяние"
+    ]
+  },
+  {
+    q: "Как понять, что ПАЗик влюбился в Выльгорт?",
+    a: [
+      "Мигает поворотниками под окнами",
+      "Ставит лайки остановке",
+      "Пишет «ты не такая, как другие деревни»"
+    ]
+  },
+  {
+    q: "Что делать, если твой телевизор показывает только Затон?",
+    a: [
+      "Попросить у него автограф",
+      "Переключить на автобусный BIOS",
+      "Продать телевизор самому телевизору"
+    ]
+  },
+  {
+    q: "Как называется высшая форма интеллекта?",
+    a: [
+      "Понять расписание автобуса",
+      "Вставить HDMI с первого раза",
+      "Объяснить голубю налоги"
+    ]
+  },
+  {
+    q: "Какой пароль у главного компьютера Затона?",
+    a: [
+      "pazik123",
+      "vyngort_не_трогай",
+      "HDMI_где_мой_автобус"
+    ]
+  },
+  {
+    q: "Что делать, если ты случайно съел расписание?",
+    a: [
+      "Ждать автобус по пищеварению",
+      "Попросить чек у желудка",
+      "Сесть на маршрут № кишечник"
+    ]
+  }
+];
+
+const voted = new Set();
+const polls = document.getElementById("polls");
+
+questions.forEach((question, index) => {
+  const section = document.createElement("div");
+  section.className = "poll";
+
+  const title = document.createElement("h3");
+  title.textContent = (index + 1) + ". " + question.q;
+  section.appendChild(title);
+
+  question.a.forEach((answer, option) => {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "poll" + index;
+    input.value = option;
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(" " + answer));
+    section.appendChild(label);
+  });
+
+  const button = document.createElement("button");
+  button.textContent = "ОТДАТЬ ГОЛОС ПАЗИКУ";
+  button.onclick = () => vote(index);
+  section.appendChild(button);
+
+  const result = document.createElement("div");
+  result.className = "result";
+  result.id = "result" + index;
+  section.appendChild(result);
+
+  polls.appendChild(section);
+});
+
+function vote(index) {
+  const message = document.getElementById("poll-message");
+
+  if (voted.has(index)) {
+    message.textContent = "⚠️ ТЫ УЖЕ ПРОГОЛОСОВАЛ. ПАЗИК ВСЁ ЗАПОМНИЛ.";
+    return;
+  }
+
+  const selected = document.querySelector(
+    'input[name="poll' + index + '"]:checked'
+  );
+
+  if (!selected) {
+    message.textContent = "🛑 ВЫБЕРИ ОТВЕТ, ГРАЖДАНИН ЗАТОНОСФЕРЫ.";
+    return;
+  }
+
+  voted.add(index);
+
+  const results = [17, 29, 54];
+  results[Number(selected.value)] += 100;
+
+  const total = results.reduce((sum, n) => sum + n, 0);
+
+  document.getElementById("result" + index).innerHTML =
+    "<b>📊 РЕЗУЛЬТАТЫ НАУЧНОГО ОПРОСА:</b><br>" +
+    results.map((n, i) => {
+      const percent = Math.round(n / total * 100);
+      return "Вариант " + ["А", "Б", "В"][i] + ": " +
+        percent + "% <span class='bar'>" +
+        "█".repeat(Math.max(1, Math.round(percent / 5))) +
+        "</span>";
+    }).join("<br>") +
+    "<br>ТВОЙ ГОЛОС ПРИНЯТ. АВТОБУС УЖЕ ВЫЕХАЛ.";
+
+  message.textContent =
+    "✅ ГОЛОС ПРИНЯТ. ПОДСЧЁТ ПРОВОДИЛИ ДВА ПАЗИКА И HDMI.";
+}
+
+/* МЕМНЫЙ ШТРАФ КАЖДЫЕ 15 СЕКУНД */
+const fineOverlay = document.getElementById("fine-overlay");
+
+function showFine() {
+  fineOverlay.style.display = "flex";
+}
+
+function hideFine() {
+  fineOverlay.style.display = "none";
+}
+
+fineOverlay.addEventListener("click", event => {
+  if (event.target === fineOverlay) hideFine();
+});
+
 setInterval(showFine, 15000);
-
 </script>
+
 </body>
 </html>
